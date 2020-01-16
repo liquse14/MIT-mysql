@@ -1,0 +1,337 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on 월 11월 25 11:20:42 2019
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> conn /as sysdba
+Connected.
+SQL> select count(*) from tab;
+
+  COUNT(*)
+----------
+      4715
+
+SQL> conn hr/hr
+ERROR:
+ORA-28000: the account is locked
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> conn /as sysdba
+Connected.
+SQL> alter user hr identified by hr account unlock;
+
+User altered.
+
+SQL> conn hr/hr
+Connected.
+SQL> select count(*) from tab;
+
+  COUNT(*)
+----------
+         8
+
+SQL> conn /as sysdba
+Connected.
+SQL> show user
+USER is "SYS"
+SQL> @C:\oraclexe\app\oracle\product\11.2.0\server\rdbms\admin\scott.sql
+SQL> alter user scott indentified by tiger;
+alter user scott indentified by tiger
+                 *
+ERROR at line 1:
+ORA-00922: missing or invalid option
+
+
+SQL> alter user scott identified by tiger;
+
+User altered.
+
+SQL> conn scott/tiger
+Connected.
+SQL> select count(*) from tab;
+
+  COUNT(*)
+----------
+         4
+
+SQL> select * from tab;
+
+TNAME                                                        TABTYPE
+------------------------------------------------------------ --------------
+ CLUSTERID
+----------
+BONUS                                                        TABLE
+
+
+DEPT                                                         TABLE
+
+
+EMP                                                          TABLE
+
+
+
+TNAME                                                        TABTYPE
+------------------------------------------------------------ --------------
+ CLUSTERID
+----------
+SALGRADE                                                     TABLE
+
+
+
+SQL> show user
+USER is "SCOTT"
+SQL> select empno, ename, jb, dept
+  2  from emp;
+select empno, ename, jb, dept
+                         *
+ERROR at line 1:
+ORA-00904: "DEPT": invalid identifier
+
+
+SQL> c/jb/job
+  1* select empno, ename, job, dept
+SQL> a no
+  1* select empno, ename, job, deptno
+SQL> /
+
+     EMPNO ENAME                JOB                    DEPTNO
+---------- -------------------- ------------------ ----------
+      7369 SMITH                CLERK                      20
+      7499 ALLEN                SALESMAN                   30
+      7521 WARD                 SALESMAN                   30
+      7566 JONES                MANAGER                    20
+      7654 MARTIN               SALESMAN                   30
+      7698 BLAKE                MANAGER                    30
+      7782 CLARK                MANAGER                    10
+      7839 KING                 PRESIDENT                  10
+      7844 TURNER               SALESMAN                   30
+      7900 JAMES                CLERK                      30
+      7902 FORD                 ANALYST                    20
+
+     EMPNO ENAME                JOB                    DEPTNO
+---------- -------------------- ------------------ ----------
+      7934 MILLER               CLERK                      10
+
+12 rows selected.
+
+SQL> spool c:\DEV\sqlworkspaces\Day-20191125_오전
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> desc dept;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTNO                                    NOT NULL NUMBER(2)
+ DNAME                                              VARCHAR2(14)
+ LOC                                                VARCHAR2(13)
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select e.empno, e.ename, e.job, d.dname, d.loc
+  2  from dept d, emp e
+  3* where d.deptno=e.deptno
+SQL> /
+
+     EMPNO ENAME                JOB                DNAME
+---------- -------------------- ------------------ ----------------------------
+LOC
+--------------------------
+      7369 SMITH                CLERK              RESEARCH
+DALLAS
+
+      7499 ALLEN                SALESMAN           SALES
+CHICAGO
+
+      7521 WARD                 SALESMAN           SALES
+CHICAGO
+
+
+     EMPNO ENAME                JOB                DNAME
+---------- -------------------- ------------------ ----------------------------
+LOC
+--------------------------
+      7566 JONES                MANAGER            RESEARCH
+DALLAS
+
+      7654 MARTIN               SALESMAN           SALES
+CHICAGO
+
+      7698 BLAKE                MANAGER            SALES
+CHICAGO
+
+
+     EMPNO ENAME                JOB                DNAME
+---------- -------------------- ------------------ ----------------------------
+LOC
+--------------------------
+      7782 CLARK                MANAGER            ACCOUNTING
+NEW YORK
+
+      7839 KING                 PRESIDENT          ACCOUNTING
+NEW YORK
+
+      7844 TURNER               SALESMAN           SALES
+CHICAGO
+
+
+     EMPNO ENAME                JOB                DNAME
+---------- -------------------- ------------------ ----------------------------
+LOC
+--------------------------
+      7900 JAMES                CLERK              SALES
+CHICAGO
+
+      7902 FORD                 ANALYST            RESEARCH
+DALLAS
+
+      7934 MILLER               CLERK              ACCOUNTING
+NEW YORK
+
+
+12 rows selected.
+
+SQL> save C:\DEV\sqlworkspaces\emp_dept
+Created file C:\DEV\sqlworkspaces\emp_dept.sql
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select e.empno, e.ename, e.job, d.dname, d.loc
+  2  from dept d, emp e
+  3* where d.deptno=e.deptno
+SQL> /
+
+     EMPNO ENAME                JOB                DNAME
+---------- -------------------- ------------------ ----------------------------
+LOC
+--------------------------
+      7369 SMITH                CLERK              RESEARCH
+DALLAS
+
+      7499 ALLEN                SALESMAN           SALES
+CHICAGO
+
+      7521 WARD                 SALESMAN           SALES
+CHICAGO
+
+
+     EMPNO ENAME                JOB                DNAME
+---------- -------------------- ------------------ ----------------------------
+LOC
+--------------------------
+      7566 JONES                MANAGER            RESEARCH
+DALLAS
+
+      7654 MARTIN               SALESMAN           SALES
+CHICAGO
+
+      7698 BLAKE                MANAGER            SALES
+CHICAGO
+
+
+     EMPNO ENAME                JOB                DNAME
+---------- -------------------- ------------------ ----------------------------
+LOC
+--------------------------
+      7782 CLARK                MANAGER            ACCOUNTING
+NEW YORK
+
+      7839 KING                 PRESIDENT          ACCOUNTING
+NEW YORK
+
+      7844 TURNER               SALESMAN           SALES
+CHICAGO
+
+
+     EMPNO ENAME                JOB                DNAME
+---------- -------------------- ------------------ ----------------------------
+LOC
+--------------------------
+      7900 JAMES                CLERK              SALES
+CHICAGO
+
+      7902 FORD                 ANALYST            RESEARCH
+DALLAS
+
+      7934 MILLER               CLERK              ACCOUNTING
+NEW YORK
+
+
+12 rows selected.
+
+SQL> @C:\DEV\sqlworkspaces\emp_dept
+SQL> select e.empno, e.ename, e.job, d.dname, d.loc
+  2  from dept d, emp e
+  3  where d.deptno=e.deptno
+  4  /
+
+     EMPNO ENAME                JOB                DNAME
+---------- -------------------- ------------------ ----------------------------
+LOC
+--------------------------
+      7369 SMITH                CLERK              RESEARCH
+DALLAS
+
+      7499 ALLEN                SALESMAN           SALES
+CHICAGO
+
+      7521 WARD                 SALESMAN           SALES
+CHICAGO
+
+
+     EMPNO ENAME                JOB                DNAME
+---------- -------------------- ------------------ ----------------------------
+LOC
+--------------------------
+      7566 JONES                MANAGER            RESEARCH
+DALLAS
+
+      7654 MARTIN               SALESMAN           SALES
+CHICAGO
+
+      7698 BLAKE                MANAGER            SALES
+CHICAGO
+
+
+     EMPNO ENAME                JOB                DNAME
+---------- -------------------- ------------------ ----------------------------
+LOC
+--------------------------
+      7782 CLARK                MANAGER            ACCOUNTING
+NEW YORK
+
+      7839 KING                 PRESIDENT          ACCOUNTING
+NEW YORK
+
+      7844 TURNER               SALESMAN           SALES
+CHICAGO
+
+
+     EMPNO ENAME                JOB                DNAME
+---------- -------------------- ------------------ ----------------------------
+LOC
+--------------------------
+      7900 JAMES                CLERK              SALES
+CHICAGO
+
+      7902 FORD                 ANALYST            RESEARCH
+DALLAS
+
+      7934 MILLER               CLERK              ACCOUNTING
+NEW YORK
+
+
+12 rows selected.
+
+SQL> spool off
+SQL>

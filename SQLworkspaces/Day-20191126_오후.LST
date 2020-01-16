@@ -1,0 +1,224 @@
+SQL> select '별칭' from dual;
+
+'별칭'                                                                                                                                      
+------------                                                                                                                                
+별칭                                                                                                                                        
+
+SQL> select ename as "성명",sal "급여"
+  2  from emp;
+
+성명                       급여                                                                                                             
+-------------------- ----------                                                                                                             
+SMITH                       800                                                                                                             
+ALLEN                      1600                                                                                                             
+WARD                       1250                                                                                                             
+JONES                      2975                                                                                                             
+MARTIN                     1250                                                                                                             
+BLAKE                      2850                                                                                                             
+CLARK                      2450                                                                                                             
+KING                       5000                                                                                                             
+TURNER                     1500                                                                                                             
+JAMES                       950                                                                                                             
+FORD                       3000                                                                                                             
+
+성명                       급여                                                                                                             
+-------------------- ----------                                                                                                             
+MILLER                     1300                                                                                                             
+
+12 rows selected.
+
+SQL> select ename || ' ' || job as "Employees"
+  2  from emp;
+
+Employees                                                                                                                                   
+----------------------------------------                                                                                                    
+SMITH CLERK                                                                                                                                 
+ALLEN SALESMAN                                                                                                                              
+WARD SALESMAN                                                                                                                               
+JONES MANAGER                                                                                                                               
+MARTIN SALESMAN                                                                                                                             
+BLAKE MANAGER                                                                                                                               
+CLARK MANAGER                                                                                                                               
+KING PRESIDENT                                                                                                                              
+TURNER SALESMAN                                                                                                                             
+JAMES CLERK                                                                                                                                 
+FORD ANALYST                                                                                                                                
+
+Employees                                                                                                                                   
+----------------------------------------                                                                                                    
+MILLER CLERK                                                                                                                                
+
+12 rows selected.
+
+SQL>  select job from emp;
+
+JOB                                                                                                                                         
+----------                                                                                                                                  
+CLERK                                                                                                                                       
+SALESMAN                                                                                                                                    
+SALESMAN                                                                                                                                    
+MANAGER                                                                                                                                     
+SALESMAN                                                                                                                                    
+MANAGER                                                                                                                                     
+MANAGER                                                                                                                                     
+PRESIDENT                                                                                                                                   
+SALESMAN                                                                                                                                    
+CLERK                                                                                                                                       
+ANALYST                                                                                                                                     
+
+JOB                                                                                                                                         
+----------                                                                                                                                  
+CLERK                                                                                                                                       
+
+12 rows selected.
+
+SQL> select distinct job from emp;
+
+JOB                                                                                                                                         
+----------                                                                                                                                  
+CLERK                                                                                                                                       
+SALESMAN                                                                                                                                    
+PRESIDENT                                                                                                                                   
+MANAGER                                                                                                                                     
+ANALYST                                                                                                                                     
+
+SQL> select * from emp;
+
+     EMPNO ENAME      JOB               MGR HIREDATE        SAL       COMM     DEPTNO                                                       
+---------- ---------- ---------- ---------- -------- ---------- ---------- ----------                                                       
+      7369 SMITH      CLERK            7902 80/12/17        800                    20                                                       
+      7499 ALLEN      SALESMAN         7698 81/02/20       1600        300         30                                                       
+      7521 WARD       SALESMAN         7698 81/02/22       1250        500         30                                                       
+      7566 JONES      MANAGER          7839 81/04/02       2975                    20                                                       
+      7654 MARTIN     SALESMAN         7698 81/09/28       1250       1400         30                                                       
+      7698 BLAKE      MANAGER          7839 81/05/01       2850                    30                                                       
+      7782 CLARK      MANAGER          7839 81/06/09       2450                    10                                                       
+      7839 KING       PRESIDENT             81/11/17       5000                    10                                                       
+      7844 TURNER     SALESMAN         7698 81/09/08       1500          0         30                                                       
+      7900 JAMES      CLERK            7698 81/12/03        950                    30                                                       
+      7902 FORD       ANALYST          7566 81/12/03       3000                    20                                                       
+
+     EMPNO ENAME      JOB               MGR HIREDATE        SAL       COMM     DEPTNO                                                       
+---------- ---------- ---------- ---------- -------- ---------- ---------- ----------                                                       
+      7934 MILLER     CLERK            7782 82/01/23       1300                    10                                                       
+
+12 rows selected.
+
+SQL> select empno,ename,job,mgr
+  2  from emp
+  3  where hiredate >= '80/12/17';
+
+     EMPNO ENAME      JOB               MGR                                                                                                 
+---------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH      CLERK            7902                                                                                                 
+      7499 ALLEN      SALESMAN         7698                                                                                                 
+      7521 WARD       SALESMAN         7698                                                                                                 
+      7566 JONES      MANAGER          7839                                                                                                 
+      7654 MARTIN     SALESMAN         7698                                                                                                 
+      7698 BLAKE      MANAGER          7839                                                                                                 
+      7782 CLARK      MANAGER          7839                                                                                                 
+      7839 KING       PRESIDENT                                                                                                             
+      7844 TURNER     SALESMAN         7698                                                                                                 
+      7900 JAMES      CLERK            7698                                                                                                 
+      7902 FORD       ANALYST          7566                                                                                                 
+
+     EMPNO ENAME      JOB               MGR                                                                                                 
+---------- ---------- ---------- ----------                                                                                                 
+      7934 MILLER     CLERK            7782                                                                                                 
+
+12 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select empno,ename,job, concat(empno,ename) as"e_name",
+  2  	concat(ename,empno) as "e_empno",
+  3  	concat(ename,job) as "e_job" 
+  4  from emp
+  5* whrere deptno=10
+SQL> /
+whrere deptno=10
+       *
+ERROR at line 5:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select empno,ename,job, concat(empno,ename) as"e_name",
+  2  	concat(ename,empno) as "e_empno",
+  3  	concat(ename,job) as "e_job" 
+  4  from emp
+  5* whrere deptno=10
+SQL> /
+whrere deptno=10
+       *
+ERROR at line 5:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select empno,ename,job, concat(empno,ename) as"e_name",
+  2  	concat(ename,empno) as "e_empno",
+  3  	concat(ename,job) as "e_job" 
+  4  from emp
+  5* where deptno=10
+SQL> /
+
+     EMPNO ENAME      JOB        e_name                                                                                                     
+---------- ---------- ---------- ----------------------------------------------------------------------------------------------------       
+e_empno                                                                                              e_job                                  
+---------------------------------------------------------------------------------------------------- -------------------------------------- 
+      7782 CLARK      MANAGER    7782CLARK                                                                                                  
+CLARK7782                                                                                            CLARKMANAGER                           
+                                                                                                                                            
+      7839 KING       PRESIDENT  7839KING                                                                                                   
+KING7839                                                                                             KINGPRESIDENT                          
+                                                                                                                                            
+      7934 MILLER     CLERK      7934MILLER                                                                                                 
+MILLER7934                                                                                           MILLERCLERK                            
+                                                                                                                                            
+
+SQL> col e_name format a15
+SQL> col e_empno format a15
+SQL> col e_job format a15
+SQL> r
+  1  select empno,ename,job, concat(empno,ename) as"e_name",
+  2  	concat(ename,empno) as "e_empno",
+  3  	concat(ename,job) as "e_job" 
+  4  from emp
+  5* where deptno=10
+
+     EMPNO ENAME      JOB        e_name          e_empno         e_job                                                                      
+---------- ---------- ---------- --------------- --------------- ---------------                                                            
+      7782 CLARK      MANAGER    7782CLARK       CLARK7782       CLARKMANAGER                                                               
+      7839 KING       PRESIDENT  7839KING        KING7839        KINGPRESIDENT                                                              
+      7934 MILLER     CLERK      7934MILLER      MILLER7934      MILLERCLERK                                                                
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select substr('Welcome to Oracle 11g',4,3)
+  2* form dual
+SQL> /
+form dual
+     *
+ERROR at line 2:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select substr('Welcome to Oracle 11g',4,3)
+  2* from dual
+SQL> /
+
+SUBSTR                                                                                                                                      
+------                                                                                                                                      
+com                                                                                                                                         
+
+SQL> spool off

@@ -1,0 +1,682 @@
+SQL> select count(*) from tab;
+
+  COUNT(*)                                                                      
+----------                                                                      
+        12                                                                      
+
+SQL> create index
+  2  on
+  3  ere
+  4  /
+on
+*
+ERROR at line 2:
+ORA-00953: missing or invalid index name 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create index emp_ename_idx
+  2* on emp(ename)
+SQL> /
+
+Index created.
+
+SQL> desc user_indexes
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ INDEX_NAME                                NOT NULL VARCHAR2(30)
+ INDEX_TYPE                                         VARCHAR2(27)
+ TABLE_OWNER                               NOT NULL VARCHAR2(30)
+ TABLE_NAME                                NOT NULL VARCHAR2(30)
+ TABLE_TYPE                                         VARCHAR2(11)
+ UNIQUENESS                                         VARCHAR2(9)
+ COMPRESSION                                        VARCHAR2(8)
+ PREFIX_LENGTH                                      NUMBER
+ TABLESPACE_NAME                                    VARCHAR2(30)
+ INI_TRANS                                          NUMBER
+ MAX_TRANS                                          NUMBER
+ INITIAL_EXTENT                                     NUMBER
+ NEXT_EXTENT                                        NUMBER
+ MIN_EXTENTS                                        NUMBER
+ MAX_EXTENTS                                        NUMBER
+ PCT_INCREASE                                       NUMBER
+ PCT_THRESHOLD                                      NUMBER
+ INCLUDE_COLUMN                                     NUMBER
+ FREELISTS                                          NUMBER
+ FREELIST_GROUPS                                    NUMBER
+ PCT_FREE                                           NUMBER
+ LOGGING                                            VARCHAR2(3)
+ BLEVEL                                             NUMBER
+ LEAF_BLOCKS                                        NUMBER
+ DISTINCT_KEYS                                      NUMBER
+ AVG_LEAF_BLOCKS_PER_KEY                            NUMBER
+ AVG_DATA_BLOCKS_PER_KEY                            NUMBER
+ CLUSTERING_FACTOR                                  NUMBER
+ STATUS                                             VARCHAR2(8)
+ NUM_ROWS                                           NUMBER
+ SAMPLE_SIZE                                        NUMBER
+ LAST_ANALYZED                                      DATE
+ DEGREE                                             VARCHAR2(40)
+ INSTANCES                                          VARCHAR2(40)
+ PARTITIONED                                        VARCHAR2(3)
+ TEMPORARY                                          VARCHAR2(1)
+ GENERATED                                          VARCHAR2(1)
+ SECONDARY                                          VARCHAR2(1)
+ BUFFER_POOL                                        VARCHAR2(7)
+ FLASH_CACHE                                        VARCHAR2(7)
+ CELL_FLASH_CACHE                                   VARCHAR2(7)
+ USER_STATS                                         VARCHAR2(3)
+ DURATION                                           VARCHAR2(15)
+ PCT_DIRECT_ACCESS                                  NUMBER
+ ITYP_OWNER                                         VARCHAR2(30)
+ ITYP_NAME                                          VARCHAR2(30)
+ PARAMETERS                                         VARCHAR2(1000)
+ GLOBAL_STATS                                       VARCHAR2(3)
+ DOMIDX_STATUS                                      VARCHAR2(12)
+ DOMIDX_OPSTATUS                                    VARCHAR2(6)
+ FUNCIDX_STATUS                                     VARCHAR2(8)
+ JOIN_INDEX                                         VARCHAR2(3)
+ IOT_REDUNDANT_PKEY_ELIM                            VARCHAR2(3)
+ DROPPED                                            VARCHAR2(3)
+ VISIBILITY                                         VARCHAR2(9)
+ DOMIDX_MANAGEMENT                                  VARCHAR2(14)
+ SEGMENT_CREATED                                    VARCHAR2(3)
+
+SQL> select index_name from user_indexes;
+
+INDEX_NAME                                                                      
+------------------------------------------------------------                    
+MEMBER_ID_PK                                                                    
+MEMBER_JUMIN12_UK                                                               
+POST_POST12_PK                                                                  
+DEPT_TAB_DEPTNO_PK                                                              
+TEST_TAB1_ID_PK                                                                 
+EMP_ENAME_IDX                                                                   
+PK_EMP                                                                          
+PK_DEPT                                                                         
+
+8 rows selected.
+
+SQL> drop index emp_ename_idx;
+
+Index dropped.
+
+SQL> select index_name from user_indexes;
+
+INDEX_NAME                                                                      
+------------------------------------------------------------                    
+MEMBER_ID_PK                                                                    
+MEMBER_JUMIN12_UK                                                               
+POST_POST12_PK                                                                  
+DEPT_TAB_DEPTNO_PK                                                              
+TEST_TAB1_ID_PK                                                                 
+PK_EMP                                                                          
+PK_DEPT                                                                         
+
+7 rows selected.
+
+SQL> select 'view Examples' from dual
+  2  ed;
+
+'VIEWEXAMPLES'                                                                  
+--------------------------                                                      
+view Examples                                                                   
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select view emp_views
+  2  as
+  3  	select *
+  4  	from emp
+  5* 	where deptno=20
+SQL> /
+select view emp_views
+       *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select view emp_views_20
+  2  as
+  3  	select *
+  4  	from emp
+  5* 	where deptno=20
+SQL> /
+select view emp_views_20
+       *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create view emp_views_20
+  2  as
+  3  	select *
+  4  	from emp
+  5* 	where deptno=20
+SQL> /
+create view emp_views_20
+            *
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> grant create view;
+grant create view
+                *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> conn /as sysdba
+Connected.
+SQL> grant create view to scott;
+
+Grant succeeded.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* grant create view to scott
+SQL> conn scott/tiger
+Connected.
+SQL> create view emp_views_20
+  2    2  as
+  3    3     select *
+  4    4     from emp
+  5    5*    where deptno=20
+  6  /
+  2  as
+  *
+ERROR at line 2:
+ORA-00905: missing keyword 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create view emp_views_20
+  2  as
+  3  select *
+  4  from emp
+  5* where deptno=20
+SQL> /
+
+View created.
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> desc emp_views=20;
+SP2-0565: Illegal identifier.
+SQL> desc emp_views_20;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> desc user_views;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ VIEW_NAME                                 NOT NULL VARCHAR2(30)
+ TEXT_LENGTH                                        NUMBER
+ TEXT                                               LONG
+ TYPE_TEXT_LENGTH                                   NUMBER
+ TYPE_TEXT                                          VARCHAR2(4000)
+ OID_TEXT_LENGTH                                    NUMBER
+ OID_TEXT                                           VARCHAR2(4000)
+ VIEW_TYPE_OWNER                                    VARCHAR2(30)
+ VIEW_TYPE                                          VARCHAR2(30)
+ SUPERVIEW_NAME                                     VARCHAR2(30)
+ EDITIONING_VIEW                                    VARCHAR2(1)
+ READ_ONLY                                          VARCHAR2(1)
+
+SQL> select view_name,text,readonly
+  2  from user_views;
+select view_name,text,readonly
+                      *
+ERROR at line 1:
+ORA-00904: "READONLY": invalid identifier 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select view_name,text,read_only
+  2* from user_views
+SQL> /
+
+VIEW_NAME                                                                       
+------------------------------------------------------------                    
+TEXT                                                                            
+--------------------------------------------------------------------------------
+RE                                                                              
+--                                                                              
+EMP_VIEWS_20                                                                    
+select "EMPNO","ENAME","JOB","MGR","HIREDATE","SAL","COMM","DEPTNO"             
+from emp                                                                        
+whe                                                                             
+N                                                                               
+                                                                                
+
+SQL> col view_name format a20
+SQL> r
+  1  select view_name,text,read_only
+  2* from user_views
+
+VIEW_NAME                                                                       
+--------------------                                                            
+TEXT                                                                            
+--------------------------------------------------------------------------------
+RE                                                                              
+--                                                                              
+EMP_VIEWS_20                                                                    
+select "EMPNO","ENAME","JOB","MGR","HIREDATE","SAL","COMM","DEPTNO"             
+from emp                                                                        
+whe                                                                             
+N                                                                               
+                                                                                
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create view dept_emp_view_
+  2  as
+  3  	select d.dname,MIN(d.sal),MAX(e.sal),AVG(e.sal)
+  4  	from dept d,emp e
+  5  	where d.detno=d.deptno
+  6* 	groub by d.dname
+SQL> /
+	groub by d.dname
+	*
+ERROR at line 6:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create view dept_emp_view_
+  2  as
+  3  	select d.dname,MIN(d.sal),MAX(e.sal),AVG(e.sal)
+  4  	from dept d,emp e
+  5  	where d.detno=d.deptno
+  6* 	group by d.dname
+SQL> /
+	where d.detno=d.deptno
+	      *
+ERROR at line 5:
+ORA-00904: "D"."DETNO": invalid identifier 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create view dept_emp_view_
+  2  as
+  3  	select d.dname, MIN(e.sal),MAX(e.sal),AVG(e.sal)
+  4  	from dept d,emp e
+  5  	where d.detno=e.deptno
+  6* 	group by d.dname
+SQL> /
+	where d.detno=e.deptno
+	      *
+ERROR at line 5:
+ORA-00904: "D"."DETNO": invalid identifier 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create view dept_emp_view_
+  2  as
+  3  	select d.dname, MIN(e.sal),MAX(e.sal),AVG(e.sal)
+  4  	from dept d,emp e
+  5  	where d.deptno=e.deptno
+  6* 	group by d.dname
+SQL> /
+	select d.dname, MIN(e.sal),MAX(e.sal),AVG(e.sal)
+	                *
+ERROR at line 3:
+ORA-00998: must name this expression with a column alias 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create view dept_emp_view
+  2  as
+  3  	select d.dname, MIN(e.sal),MAX(e.sal),AVG(e.sal)
+  4  	from dept d,emp e
+  5  	where d.deptno=e.deptno
+  6* 	group by d.dname
+SQL> /
+	select d.dname, MIN(e.sal),MAX(e.sal),AVG(e.sal)
+	                *
+ERROR at line 3:
+ORA-00998: must name this expression with a column alias 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create view dept_emp_view(name,minsal,maxsal,avgsal)
+  2  as
+  3  	select d.dname, MIN(e.sal),MAX(e.sal),AVG(e.sal)
+  4  	from dept d,emp e
+  5  	where d.deptno=e.deptno
+  6* 	group by d.dname
+SQL> /
+
+View created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace emp_view_10
+  2  as
+  3  	select * 
+  4  	from emp
+  5  	where deptno=10
+  6* 	with read only
+SQL> /
+create or replace emp_view_10
+                  *
+ERROR at line 1:
+ORA-00922: missing or invalid option 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace view emp_view_10
+  2  as
+  3  	select * 
+  4  	from emp
+  5  	where deptno=10
+  6* 	with read only
+SQL> /
+
+View created.
+
+SQL> select * from emp_view_10;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE          
+---------- -------------------- ------------------ ---------- --------          
+       SAL       COMM     DEPTNO                                                
+---------- ---------- ----------                                                
+      7839 KING                 MANAGER                       81/11/17          
+      1000                    10                                                
+                                                                                
+      7934 MILLER               MANAGER                  7782 82/01/23          
+      1300                    10                                                
+                                                                                
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  delete from emp_view_10
+  2* where empno=7839
+SQL> /
+delete from emp_view_10
+            *
+ERROR at line 1:
+ORA-42399: cannot perform a DML operation on a read-only view 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select rownum as "NUM", ename,hiredate
+  2  from 
+  3  	(
+  4  		select ename,hiredate
+  5  		from emp
+  6  		order by hiredate desc
+  7  )
+  8* where rownum <=5
+SQL> /
+
+       NUM ENAME                HIREDATE                                        
+---------- -------------------- --------                                        
+         1 MILLER               82/01/23                                        
+         2 JAMES                81/12/03                                        
+         3 FORD                 81/12/03                                        
+         4 KING                 81/11/17                                        
+         5 MARTIN               81/09/28                                        
+
+SQL> sed
+SP2-0042: unknown command "sed" - rest of line ignored.
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select rownum as "NUM", ename,hiredate
+  2  from 
+  3  	(
+  4  		select ename,hiredate
+  5  		from emp
+  6  		order by hiredate desc
+  7  )
+  8* where rownum <=5
+SQL> fdfafd
+SP2-0042: unknown command "fdfafd" - rest of line ignored.
+SQL> /
+
+       NUM ENAME                HIREDATE                                        
+---------- -------------------- --------                                        
+         1 MILLER               82/01/23                                        
+         2 JAMES                81/12/03                                        
+         3 FORD                 81/12/03                                        
+         4 KING                 81/11/17                                        
+         5 MARTIN               81/09/28                                        
+
+SQL> select 'JOIN' from dual;
+
+'JOIN'                                                                          
+--------                                                                        
+JOIN                                                                            
+
+SQL> select 'Cartesian Product' from dual;
+
+'CARTESIANPRODUCT'                                                              
+----------------------------------                                              
+Cartesian Product                                                               
+
+SQL> select count(*) from emp;
+
+  COUNT(*)                                                                      
+----------                                                                      
+        11                                                                      
+
+SQL> select count(*) from dept;
+
+  COUNT(*)                                                                      
+----------                                                                      
+         5                                                                      
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select count(*) from dept
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> desc dept;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTNO                                    NOT NULL NUMBER(2)
+ DNAME                                              VARCHAR2(14)
+ LOC                                                VARCHAR2(13)
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select empno,ename,loc
+  2  from dept, emp
+  3* order by empno
+SQL> /
+
+     EMPNO ENAME                LOC                                             
+---------- -------------------- --------------------------                      
+      7369 SMITH                DALLAS                                          
+      7369 SMITH                CHICAGO                                         
+      7369 SMITH                NEW YORK                                        
+      7369 SMITH                BOSTON                                          
+      7369 SMITH                                                                
+      7499 ALLEN                NEW YORK                                        
+      7499 ALLEN                DALLAS                                          
+      7499 ALLEN                CHICAGO                                         
+      7499 ALLEN                                                                
+      7499 ALLEN                BOSTON                                          
+      7521 WARD                 DALLAS                                          
+
+     EMPNO ENAME                LOC                                             
+---------- -------------------- --------------------------                      
+      7521 WARD                                                                 
+      7521 WARD                 BOSTON                                          
+      7521 WARD                 NEW YORK                                        
+      7521 WARD                 CHICAGO                                         
+      7566 JONES                CHICAGO                                         
+      7566 JONES                DALLAS                                          
+      7566 JONES                                                                
+      7566 JONES                BOSTON                                          
+      7566 JONES                NEW YORK                                        
+      7654 MARTIN               BOSTON                                          
+      7654 MARTIN               DALLAS                                          
+
+     EMPNO ENAME                LOC                                             
+---------- -------------------- --------------------------                      
+      7654 MARTIN                                                               
+      7654 MARTIN               NEW YORK                                        
+      7654 MARTIN               CHICAGO                                         
+      7698 BLAKE                NEW YORK                                        
+      7698 BLAKE                                                                
+      7698 BLAKE                DALLAS                                          
+      7698 BLAKE                BOSTON                                          
+      7698 BLAKE                CHICAGO                                         
+      7839 KING                 NEW YORK                                        
+      7839 KING                 BOSTON                                          
+      7839 KING                 DALLAS                                          
+
+     EMPNO ENAME                LOC                                             
+---------- -------------------- --------------------------                      
+      7839 KING                 CHICAGO                                         
+      7839 KING                                                                 
+      7844 TURNER               NEW YORK                                        
+      7844 TURNER               DALLAS                                          
+      7844 TURNER               BOSTON                                          
+      7844 TURNER               CHICAGO                                         
+      7844 TURNER                                                               
+      7900 JAMES                                                                
+      7900 JAMES                DALLAS                                          
+      7900 JAMES                BOSTON                                          
+      7900 JAMES                NEW YORK                                        
+
+     EMPNO ENAME                LOC                                             
+---------- -------------------- --------------------------                      
+      7900 JAMES                CHICAGO                                         
+      7902 FORD                                                                 
+      7902 FORD                 CHICAGO                                         
+      7902 FORD                 NEW YORK                                        
+      7902 FORD                 DALLAS                                          
+      7902 FORD                 BOSTON                                          
+      7934 MILLER               CHICAGO                                         
+      7934 MILLER               NEW YORK                                        
+      7934 MILLER               DALLAS                                          
+      7934 MILLER               BOSTON                                          
+      7934 MILLER                                                               
+
+55 rows selected.
+
+SQL> select 'Equijoin' from dual;
+
+'EQUIJOIN'                                                                      
+----------------                                                                
+Equijoin                                                                        
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select empno, deptno, loc
+  2  from dept,emp
+  3  where dept.depno=emp.deptno
+  4* order by dept.deptno
+SQL> /
+where dept.depno=emp.deptno
+      *
+ERROR at line 3:
+ORA-00904: "DEPT"."DEPNO": invalid identifier 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select empno, deptno, loc,dept.deptno
+  2  from dept,emp
+  3  where dept.deptno=emp.deptno
+  4* order by dept.deptno
+SQL> /
+select empno, deptno, loc,dept.deptno
+              *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select empno,loc,dept.deptno,emp.deptno
+  2  from dept,emp
+  3  where dept.deptno=emp.deptno
+  4* order by dept.deptno
+SQL> /
+
+     EMPNO LOC                            DEPTNO     DEPTNO                     
+---------- -------------------------- ---------- ----------                     
+      7839 NEW YORK                           10         10                     
+      7934 NEW YORK                           10         10                     
+      7902 DALLAS                             20         20                     
+      7369 DALLAS                             20         20                     
+      7566 DALLAS                             20         20                     
+      7900 CHICAGO                            30         30                     
+      7844 CHICAGO                            30         30                     
+      7654 CHICAGO                            30         30                     
+      7521 CHICAGO                            30         30                     
+      7499 CHICAGO                            30         30                     
+      7698 CHICAGO                            30         30                     
+
+11 rows selected.
+
+SQL> spool off
