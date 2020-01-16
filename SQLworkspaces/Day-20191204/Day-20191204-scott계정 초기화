@@ -1,0 +1,59 @@
+SQL> conn /as sysdba
+Connected.
+SQL> drop user scott cascade;
+
+User dropped.
+
+SQL> @C:\oraclexe\app\oracle\product\11.2.0\server\rdbms\admin\scott.sql
+SQL> Rem Copyright (c) 1990 by Oracle Corporation
+SQL> Rem NAME
+SQL> REM    UTLSAMPL.SQL
+SQL> Rem  FUNCTION
+SQL> Rem  NOTES
+SQL> Rem  MODIFIED
+SQL> Rem        gdudey  06/28/95 -  Modified for desktop seed database
+SQL> Rem        glumpkin        10/21/92 -  Renamed from SQLBLD.SQL
+SQL> Rem        blinden   07/27/92 -  Added primary and foreign keys to EMP and DEPT
+SQL> Rem        rlim    04/29/91 -         change char to varchar2
+SQL> Rem        mmoore  04/08/91 -         use unlimited tablespace priv
+SQL> Rem        pritto  04/04/91 -         change SYSDATE to 13-JUL-87
+SQL> Rem   Mendels       12/07/90 - bug 30123;add to_date calls so language independent
+SQL> Rem
+SQL> rem
+SQL> rem $Header: utlsampl.sql 7020100.1 94/09/23 22:14:24 cli Generic<base> $ sqlbld.sql
+SQL> rem
+SQL> SET TERMOUT OFF
+SQL> alter user scott identified by tiger;
+
+User altered.
+
+SQL> show user;
+USER is "SCOTT"
+SQL> conn scott/tiger
+Connected.
+SQL> select * from tab;
+
+TNAME                                                        TABTYPE
+------------------------------------------------------------ --------------
+ CLUSTERID
+----------
+BONUS                                                        TABLE
+
+
+DEPT                                                         TABLE
+
+
+EMP                                                          TABLE
+
+
+
+TNAME                                                        TABTYPE
+------------------------------------------------------------ --------------
+ CLUSTERID
+----------
+SALGRADE                                                     TABLE
+
+
+
+SQL>
+

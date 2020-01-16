@@ -1,0 +1,223 @@
+Setting environment for MariaDB 10.4 (x64)
+
+C:\WINDOWS\System32>mysql -u root -p
+Enter password: *******
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 15
+Server version: 10.4.10-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database shopmall;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> create user 'mariadbmgr'@'%' identified by 'mariadbpass';
+Query OK, 0 rows affected (0.011 sec)
+
+MariaDB [(none)]> grant all privileges on shopmall.* to 'mariadbmgr'@'%';
+Query OK, 0 rows affected (0.005 sec)
+
+MariaDB [(none)]> flush privileges;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [(none)]> quit
+Bye
+
+C:\WINDOWS\System32>mysql -u mariadbmgr -p
+Enter password: ***********
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 16
+Server version: 10.4.10-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| shopmall           |
+| test               |
++--------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [(none)]> use shopmall;
+Database changed
+MariaDB [shopmall]> show tables;
+Empty set (0.000 sec)
+
+MariaDB [shopmall]> source C:\DEV\sqlworkspaces\ShopMySQL.sql
+Query OK, 0 rows affected (0.037 sec)
+
+Query OK, 1 row affected (0.007 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.017 sec)
+
+Query OK, 1 row affected (0.009 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.008 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 0 rows affected (0.037 sec)
+
+Query OK, 1 row affected (0.014 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.008 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 0 rows affected (0.062 sec)
+
+Query OK, 1 row affected (0.007 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.016 sec)
+
+Query OK, 1 row affected (0.009 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 0 rows affected (0.035 sec)
+
+Query OK, 1 row affected (0.011 sec)
+
+Query OK, 1 row affected (0.009 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.009 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.009 sec)
+
+Query OK, 0 rows affected (0.057 sec)
+
+Query OK, 1 row affected (0.008 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.009 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 0 rows affected (0.038 sec)
+
+Query OK, 1 row affected (0.009 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.004 sec)
+
+Query OK, 1 row affected (0.004 sec)
+
+Query OK, 1 row affected (0.009 sec)
+
+Query OK, 0 rows affected (0.036 sec)
+
+Query OK, 1 row affected (0.010 sec)
+
+Query OK, 1 row affected (0.009 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.003 sec)
+
+Query OK, 1 row affected (0.009 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [shopmall]> show tables;
++--------------------+
+| Tables_in_shopmall |
++--------------------+
+| category           |
+| mall_cart          |
+| mall_order         |
+| member             |
+| mileage            |
+| products           |
+| supply_comp        |
++--------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [shopmall]> select * from member;
++-----+--------+--------+----------+-----+---------+--------+-----------------+------------+
+| num | userid | passwd | name     | age | mileage | job    | addr            | reg_date   |
++-----+--------+--------+----------+-----+---------+--------+-----------------+------------+
+|   1 | id1    | 1234   | 박연폭포 |  21 |       0 | 주부   | 부산시 동래구   | 2016-05-01 |
+|   2 | id2    | 1235   | 권율     |  22 |       0 | 직장인 | 서울시 강남구   | 2016-05-02 |
+|   3 | id3    | 1236   | 박문수   |  23 |   10000 | 직장인 | 부산시 동래구   | 2016-05-03 |
+|   4 | id4    | 1237   | 이순신   |  24 |    3000 | 학생   | 경상남도 마산시 | 2017-05-03 |
+|   5 | id5    | 1238   | 홍길동   |  25 |    5000 | 학생   | 경기도 남양주시 | 2017-05-04 |
+|   6 | id6    | 1239   | 율곡     |  26 |       0 | 직장인 | 재주도 북제주   | 2017-05-05 |
+|   7 | id7    | 1240   | 서화담   |  27 |    6000 | 직장인 | 서울시 강북구   | 2017-05-06 |
+|   8 | id8    | 1241   | 이이     |  28 |       0 | 직장인 | 강원도 원주시   | 2017-05-02 |
+|   9 | id9    | 1242   | 이황     |  29 |       0 | 직장인 | 서울시 강남구   | 2017-05-03 |
+|  10 | id10   | 1243   | 황진희   |  30 |    1000 | 주부   | 전라남도 광주시 | 2017-05-04 |
++-----+--------+--------+----------+-----+---------+--------+-----------------+------------+
+10 rows in set (0.000 sec)
+
+MariaDB [shopmall]>
